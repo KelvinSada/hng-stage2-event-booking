@@ -16,7 +16,7 @@ function App() {
     email:"",
     textarea:""
   })
-  const [,setImageUrl] = useState("")
+  const [imageUrl,setImageUrl] = useState("")
   const [errors,setErrors] =useState()
   const [,setSaveData] =useState([])
   const [savedFormData,setSavedFormData] = useState(false)
@@ -42,9 +42,11 @@ function App() {
   },[savedFormData])
 
   useEffect(()=>{
-    window.localStorage.setItem("MY_SAVED_FORM_INFO",JSON.stringify(formInputsValue))
-    // console.log("its been saved")
-    // alert("it has been saved")
+    // function SendToLocalStorage(){
+      window.localStorage.setItem("MY_SAVED_FORM_INFO",JSON.stringify(formInputsValue))
+    // } 
+    // SendToLocalStorage()
+    // eslint-disable-next-line
   },[savedFormData])
 
   
@@ -65,10 +67,10 @@ function App() {
     const uploadedImageUrl = await response.json()
     setImageUrl(uploadedImageUrl.url)
   }
-  
   function handleSubmit(event){
     // console.log(event)
   }
+  console.log(imageUrl)
   function isValidEmail(email){
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email)
