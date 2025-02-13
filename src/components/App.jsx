@@ -114,7 +114,7 @@ function handleSubmitClick(event){
     <div className="App">
     {/* <h1 className='novoh'>Novoh</h1> */}
     <header className="header">
-      <img className="logo-image" src={Logo}/>
+      <img className="logo-image" src={Logo} alt=""/>
       <nav className="nav-menu">
         <ul className="menu-container">
           <li className="menu-Items">Event</li>
@@ -175,7 +175,7 @@ function handleSubmitClick(event){
           <h2 className='select-image'>Upload Profile Photo</h2>
           <div className="upload-photo-container">
               <label for="myImage" className='custom-image'>
-                <img src={cloudImage}/>
+                <img src={cloudImage} alt=""/>
                 <p className='upload-image-text'>Drag and drop or click to upload</p>
               </label>
               <input id="myImage" className='inner-image-container' type="file" onChange={handlePictureUpload}/>
@@ -244,7 +244,7 @@ function handleSubmitClick(event){
             <h1 className='ticket-content-head'>Techember Fest "25</h1>
             <p className='ticket-content-text-first'>📍 04 Rumens road, Ikoyi, Lagos</p>
             <p className='ticket-content-text-first'>📅 March 15, 2025 | 7:00 PM</p>
-            <img className="ticket-content-pic" src=""/> 
+            <img className="ticket-content-pic" src="" alt=""/> 
             
           <div className='ticket-content-bottom'>
             <div className='ticket-content-bottom-component1'>
