@@ -1,5 +1,7 @@
 import React,{useEffect, useState} from 'react';
 import './App.css';
+import cloudImage from "./picture/cloud.png";
+import Logo from "./picture/logo.png";
 import TicketType from './Ticket-type';
 import FormInput from './Forms-input';
 import TicketHead from './TicketHead';
@@ -14,9 +16,9 @@ function App() {
     email:"",
     textarea:""
   })
-  const [imageUrl,setImageUrl] = useState("")
+  const [,setImageUrl] = useState("")
   const [errors,setErrors] =useState()
-  const [saveData,setSaveData] =useState([])
+  const [,setSaveData] =useState([])
   const [savedFormData,setSavedFormData] = useState(false)
 
 
@@ -112,7 +114,7 @@ function handleSubmitClick(event){
     <div className="App">
     {/* <h1 className='novoh'>Novoh</h1> */}
     <header className="header">
-      <img className="logo-image" src={require("./picture/logo.png")} alt="Logo image"/>
+      <img className="logo-image" src={Logo} alt="Logo image"/>
       <nav className="nav-menu">
         <ul className="menu-container">
           <li className="menu-Items">Event</li>
@@ -173,7 +175,7 @@ function handleSubmitClick(event){
           <h2 className='select-image'>Upload Profile Photo</h2>
           <div className="upload-photo-container">
               <label for="myImage" className='custom-image'>
-                <img src={require("./picture/cloud.png")} alt="cloud image"/>
+                <img src={cloudImage} alt="cloud image"/>
                 <p className='upload-image-text'>Drag and drop or click to upload</p>
               </label>
               <input id="myImage" className='inner-image-container' type="file" onChange={handlePictureUpload}/>
