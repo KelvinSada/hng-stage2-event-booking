@@ -114,7 +114,7 @@ function handleSubmitClick(event){
     <div className="App">
     {/* <h1 className='novoh'>Novoh</h1> */}
     <header className="header">
-      <img className="logo-image" src={Logo} alt="Logo image"/>
+      <img className="logo-image" src={Logo}/>
       <nav className="nav-menu">
         <ul className="menu-container">
           <li className="menu-Items">Event</li>
@@ -175,7 +175,7 @@ function handleSubmitClick(event){
           <h2 className='select-image'>Upload Profile Photo</h2>
           <div className="upload-photo-container">
               <label for="myImage" className='custom-image'>
-                <img src={cloudImage} alt="cloud image"/>
+                <img src={cloudImage}/>
                 <p className='upload-image-text'>Drag and drop or click to upload</p>
               </label>
               <input id="myImage" className='inner-image-container' type="file" onChange={handlePictureUpload}/>
@@ -244,7 +244,7 @@ function handleSubmitClick(event){
             <h1 className='ticket-content-head'>Techember Fest "25</h1>
             <p className='ticket-content-text-first'>📍 04 Rumens road, Ikoyi, Lagos</p>
             <p className='ticket-content-text-first'>📅 March 15, 2025 | 7:00 PM</p>
-            <img className="ticket-content-pic" src="" alt="user picture"/> 
+            <img className="ticket-content-pic" src=""/> 
             
           <div className='ticket-content-bottom'>
             <div className='ticket-content-bottom-component1'>
@@ -268,8 +268,7 @@ function handleSubmitClick(event){
               <p className='ticket-request-answer'>Novoh Sada</p>
             </div>
           </div>
-            <img className="barcode-image" src="https://i.ibb.co/W3cK42J/image-1.png"/>
-          
+            <img className="barcode-image" src="https://i.ibb.co/W3cK42J/image-1.png" alt=""/>       
           </div>
         </div> 
       </div>
