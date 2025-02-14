@@ -6,6 +6,16 @@ import FormInput from './Forms-input';
 import TicketHead from './TicketHead';
 
 function App() {
+  const [imageUrl,setImageUrl] = useState()
+  const [firstError,setFirstError] = useState()
+  const [errors,setErrors] =useState()
+  const [savedFormData,setSavedFormData] = useState(false)
+    
+  const [picketTicket,setPickedTicket] = useState()
+  const [ticketType,setTicketType] = useState()
+    
+  const [pageNo, setPageNo] = useState(0);
+
   function bookNewTicket(){
       setFormInputsValue({
         ticketno:1,
@@ -25,16 +35,6 @@ function App() {
       email:"",
       textarea:""
     })
-    
-    const [imageUrl,setImageUrl] = useState()
-    const [firstError,setFirstError] = useState()
-    const [errors,setErrors] =useState()
-    const [savedFormData,setSavedFormData] = useState(false)
-    
-    const [picketTicket,setPickedTicket] = useState()
-    const [ticketType,setTicketType] = useState()
-    
-    const [pageNo, setPageNo] = useState(0);
 
 
   useEffect(()=>{
