@@ -122,34 +122,33 @@ useEffect(()=>{
 
 
 //Saving Page number to local storage
-useEffect(()=>{
-  const page = window.localStorage.getItem("My_Page_No")
-  if (page !== undefined && page !== null && page !== "undefined" && page !== "null"){
-    // alert(page)
-    // alert(typeof(page))
-    setPageNo(JSON.parse(page))
-    // alert(page)
-  }else{
-    setPageNo(0)
-  }
-  // setPageNo(JSON.parse(page))
-  // console.log(JSON.parse(page))
-  // if (page == "null"){
-  //   alert("page is null")
-  // } else{
-  //   alert("page is not null")
-  // }
+// useEffect(()=>{
+//   const page = window.localStorage.getItem("My_Page_No")
+//   if (page !== undefined && page !== null && page !== "undefined" && page !== "null"){
+   
+//     setPageNo(JSON.parse(page))
 
-  // if (page !== "undefined" ){
-  //   setPageNo(JSON.parse(page))
-  // } else{
-  //   setPageNo(0)
-  // }
+//   }else{
+//     setPageNo(0)
+//   }
+//   // setPageNo(JSON.parse(page))
+//   // console.log(JSON.parse(page))
+//   // if (page == "null"){
+//   //   alert("page is null")
+//   // } else{
+//   //   alert("page is not null")
+//   // }
 
-  // if (page === "null" || page === "undefined"){
-  //   setPageNo(0)
-  // }
-},[])
+//   // if (page !== "undefined" ){
+//   //   setPageNo(JSON.parse(page))
+//   // } else{
+//   //   setPageNo(0)
+//   // }
+
+//   // if (page === "null" || page === "undefined"){
+//   //   setPageNo(0)
+//   // }
+// },[])
 console.log(pageNo)
 useEffect(()=>{
   window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
