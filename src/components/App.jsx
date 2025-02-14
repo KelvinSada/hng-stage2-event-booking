@@ -35,15 +35,6 @@ function App() {
     const [ticketType,setTicketType] = useState()
     
     const [pageNo, setPageNo] = useState(0);
-    
-  async function getUpdatedValue(data){
-    // object.keys(newErrors).length === 0
-    console.log(Object.keys(data).length)
-    // if (Object.keys(data).length > 60){
-    //   const response = await JSON.parse(data);
-    //   setSaveData(response)
-    // }
-  }
 
 
   useEffect(()=>{
@@ -274,7 +265,7 @@ setPickedTicket(value.id)
         <div className='ticket-type-container'>
           { 
           ticketsArray.map((ticket,index)=>(
-          <div onClick={()=>handleTicketPick(ticket)} key={ticket.id} className={(index)==picketTicket?'picked-ticket card-component':"card-component"}>
+          <div onClick={()=>handleTicketPick(ticket)} key={ticket.id} className={(index)===picketTicket?'picked-ticket card-component':"card-component"}>
             <h1 className="card-component-head">{ticket.type}</h1>
             <h3 className="card-component-lower-head">{ticket.name}</h3>
             <p className="card-component-lower-bottom">{ticket.number}</p>
