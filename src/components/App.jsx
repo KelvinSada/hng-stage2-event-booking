@@ -39,7 +39,9 @@ function App() {
 
   useEffect(()=>{
     const data = window.localStorage.getItem("MY_SAVED_FORM_INFO")
-    setFormInputsValue(JSON.parse(data))
+    if (data !== "undefined"){
+      setFormInputsValue(JSON.parse(data))
+    }
   
   },[])
   
@@ -74,7 +76,7 @@ function App() {
   function DownloadImage(image){
     setImageUrl(image)    
   }
-
+console.log(pageNo)
 
     //Saving image to local storage
   useEffect(()=>{
