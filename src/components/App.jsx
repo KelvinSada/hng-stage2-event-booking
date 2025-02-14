@@ -123,17 +123,17 @@ useEffect(()=>{
 
 
 //Saving Page number to local storage
-useEffect(()=>{
-  const page = window.localStorage.getItem("My_Page_No")
-  if (page !== "undefined"){
-    setPageNo(JSON.parse(page))
-  }
-},[])
+// useEffect(()=>{
+//   const page = window.localStorage.getItem("My_Page_No")
+//   if (page !== "undefined" ){
+//     setPageNo(JSON.parse(page))
+//   }
+// },[])
 
-useEffect(()=>{
-  window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
-// eslint-disable-next-line
-},[pageNo])
+// useEffect(()=>{
+//   window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
+// // eslint-disable-next-line
+// },[pageNo])
 
 
   function isValidEmail(email){
