@@ -10,34 +10,33 @@ function App() {
   const [firstError,setFirstError] = useState()
   const [errors,setErrors] =useState()
   const [savedFormData,setSavedFormData] = useState(false)
+  const [formInputsValue,setFormInputsValue] = useState({
+    ticketno:1,
+    name:"",
+    email:"",
+    textarea:""
+  })
     
   const [picketTicket,setPickedTicket] = useState()
   const [ticketType,setTicketType] = useState()
     
   const [pageNo, setPageNo] = useState(0);
 
-  function bookNewTicket(){
-      setFormInputsValue({
-        ticketno:1,
-        name:"",
-        email:"",
-        textarea:""
-      })
+    function bookNewTicket(){
       setImageUrl()
-      setPickedTicket()
-      setTicketType()
-      setPageNo(0)
-    }
+      setSavedFormData(false)
+      setFormInputsValue({
+    ticketno:1,
+    name:"",
+    email:"",
+    textarea:""
+  })
+  setPickedTicket()
+  setTicketType()
     
+  setPageNo(0);
+    }
     //Send ticket to local storge
-    const [formInputsValue,setFormInputsValue] = useState({
-      ticketno:1,
-      name:"",
-      email:"",
-      textarea:""
-    })
-
-
   useEffect(()=>{
     const data = window.localStorage.getItem("MY_SAVED_FORM_INFO")
     if (data !== "undefined"){
