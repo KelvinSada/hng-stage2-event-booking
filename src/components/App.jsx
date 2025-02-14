@@ -29,6 +29,7 @@ function App() {
       setPageNo(0)
     }
     
+    //Send ticket to local storge
     const [formInputsValue,setFormInputsValue] = useState({
       ticketno:1,
       name:"",
@@ -133,12 +134,15 @@ useEffect(()=>{
   //   alert("page is not null")
   // }
 
-  if (page !== "undefined" ){
-    setPageNo(JSON.parse(page))
-  }
-  if (page === "null" || page === "undefined"){
-    setPageNo(0)
-  }
+  // if (page !== "undefined" ){
+  //   setPageNo(JSON.parse(page))
+  // } else{
+  //   setPageNo(0)
+  // }
+
+  // if (page === "null" || page === "undefined"){
+  //   setPageNo(0)
+  // }
 },[])
 
 useEffect(()=>{
@@ -257,9 +261,9 @@ setPickedTicket(value.id)
     </header>
     <main className='content-body'>
 
-    {/* {pageNo ===0&& */}
 
-    <div className={pageNo===0?"section-1":"pageDisplayNone"}>
+    {/* <div className={pageNo===0?"section-1":"pageDisplayNone"}> */}
+    <div className="section-1">
       <TicketHead
         head={"Ticket Selection"}
         steps={"Step 1/3"}
@@ -301,11 +305,10 @@ setPickedTicket(value.id)
           </div>
       </div>
     </div>
-    {/* } */}
 
-    {/* {pageNo===1&& */}
       
-    <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}>
+    {/* <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}> */}
+    <div className="section-1 section2">
       <TicketHead
         head={"Attendee Details"}
         steps={"Step 2/3"}
@@ -366,8 +369,8 @@ setPickedTicket(value.id)
     {/* } */}
 
 
-{/* {pageNo===2&& */}
-    <div className={pageNo===2?'section-1 section2':"pageDisplayNone"}>
+    {/* <div className={pageNo===2?'section-1 section2':"pageDisplayNone"}> */}
+    <div className='section-1 section2'>
     <TicketHead
         head={"Ready"}
         steps={"Step 3/3"}
@@ -425,7 +428,6 @@ setPickedTicket(value.id)
             <button className='second-button' type="submit">Download Ticket</button>
       </div>
       </div>
-    {/* } */}
     </main>
     </div>
   );
