@@ -124,9 +124,15 @@ useEffect(()=>{
 //Saving Page number to local storage
 useEffect(()=>{
   const page = window.localStorage.getItem("My_Page_No")
-
-
-  setPageNo(JSON.parse(page))
+  if (page !== undefined && page !== null && page !== "undefined" && page !== "null"){
+    // alert(page)
+    // alert(typeof(page))
+    setPageNo(JSON.parse(page))
+    // alert(page)
+  }else{
+    setPageNo(0)
+  }
+  // setPageNo(JSON.parse(page))
   // console.log(JSON.parse(page))
   // if (page == "null"){
   //   alert("page is null")
