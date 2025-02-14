@@ -267,8 +267,8 @@ setPickedTicket(value.id)
     <main className='content-body'>
 
 
-    <div className={pageNo===0?"section-1":"pageDisplayNone"}>
-    {/* <div className="section-1"> */}
+    {/* <div className={pageNo===0?"section-1":"pageDisplayNone"}> */}
+    <div className="section-1">
       <TicketHead
         head={"Ticket Selection"}
         steps={"Step 1/3"}
@@ -312,8 +312,8 @@ setPickedTicket(value.id)
     </div>
 
       
-    <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}>
-    {/* <div className="section-1 section2"> */}
+    {/* <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}> */}
+    <div className="section-1 section2">
       <TicketHead
         head={"Attendee Details"}
         steps={"Step 2/3"}
