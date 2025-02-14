@@ -2,52 +2,60 @@ import React,{useEffect, useState} from 'react';
 import './App.css';
 import cloudImage from "./picture/cloud.png";
 import Logo from "./picture/logo.png";
-import TicketType from './Ticket-type';
 import FormInput from './Forms-input';
 import TicketHead from './TicketHead';
-// @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Alatsi&display=swap');
-// @import url('https://fonts.googleapis.com/css2?family=Jeju+Myeongjo&display=swap');
 
 function App() {
-  const [formInputsValue,setFormInputsValue] = useState({
-    ticketno:1,
-    name:"",
-    email:"",
-    textarea:""
-  })
-  const [imageUrl,setImageUrl] = useState("")
-  const [errors,setErrors] =useState()
-  const [,setSaveData] =useState([])
-  const [savedFormData,setSavedFormData] = useState(false)
-
-
+  function bookNewTicket(){
+      setFormInputsValue({
+        ticketno:1,
+        name:"",
+        email:"",
+        textarea:""
+      })
+      setImageUrl()
+      setPickedTicket()
+      setTicketType()
+      setPageNo(0)
+    }
+    
+    const [formInputsValue,setFormInputsValue] = useState({
+      ticketno:1,
+      name:"",
+      email:"",
+      textarea:""
+    })
+    
+    const [imageUrl,setImageUrl] = useState()
+    const [firstError,setFirstError] = useState()
+    const [errors,setErrors] =useState()
+    const [savedFormData,setSavedFormData] = useState(false)
+    
+    const [picketTicket,setPickedTicket] = useState()
+    const [ticketType,setTicketType] = useState()
+    
+    const [pageNo, setPageNo] = useState(0);
+    
   async function getUpdatedValue(data){
     // object.keys(newErrors).length === 0
     console.log(Object.keys(data).length)
-    if (Object.keys(data).length > 60){
-      const response = await JSON.parse(data);
-      setSaveData(response)
-    }
-  }
-  // console.log(saveData)
-  console.log(formInputsValue)
-  useEffect(()=>{
-    const data = window.localStorage.getItem("MY_SAVED_FORM_INFO")
-    console.log(data)
-    getUpdatedValue(data)
-    // if (data){
-    //   setSaveData(JSON.parse(data))
+    // if (Object.keys(data).length > 60){
+    //   const response = await JSON.parse(data);
+    //   setSaveData(response)
     // }
-  },[savedFormData])
+  }
+
 
   useEffect(()=>{
-    // function SendToLocalStorage(){
+    const data = window.localStorage.getItem("MY_SAVED_FORM_INFO")
+    setFormInputsValue(JSON.parse(data))
+  
+  },[])
+  
+  useEffect(()=>{
       window.localStorage.setItem("MY_SAVED_FORM_INFO",JSON.stringify(formInputsValue))
-    // } 
-    // SendToLocalStorage()
     // eslint-disable-next-line
-  },[savedFormData])
+  },[formInputsValue])
 
   
   
@@ -70,7 +78,71 @@ function App() {
   function handleSubmit(event){
     // console.log(event)
   }
-  console.log(imageUrl)
+
+
+  function DownloadImage(image){
+    setImageUrl(image)    
+  }
+
+
+    //Saving image to local storage
+  useEffect(()=>{
+    const dataImage = window.localStorage.getItem("MY_SAVED_IMAGE")
+    if (dataImage !== "undefined"){
+      
+      DownloadImage(JSON.parse(dataImage))
+    }
+  },[])
+
+  useEffect(()=>{
+      window.localStorage.setItem("MY_SAVED_IMAGE",JSON.stringify(imageUrl))
+    // eslint-disable-next-line
+  },[imageUrl])
+
+
+    //Saving TicketType to local storage
+    useEffect(()=>{
+      const ticket = window.localStorage.getItem("Ticket_type")
+      if (ticket !== "undefined"){
+        setTicketType(JSON.parse(ticket))
+      }
+    },[])
+
+    useEffect(()=>{
+      window.localStorage.setItem("Ticket_type",JSON.stringify(ticketType))
+    // eslint-disable-next-line
+  },[ticketType])
+
+
+//Saving TicketNo to local storage
+useEffect(()=>{
+  const ticketno = window.localStorage.getItem("Ticket_number")
+  if (ticketno !== "undefined"){
+    setPickedTicket(JSON.parse(ticketno))
+  }
+},[])
+
+
+useEffect(()=>{
+  window.localStorage.setItem("Ticket_number",JSON.stringify(picketTicket))
+// eslint-disable-next-line
+},[picketTicket])
+
+
+//Saving Page number to local storage
+useEffect(()=>{
+  const page = window.localStorage.getItem("My_Page_No")
+  if (page !== "undefined"){
+    setPageNo(JSON.parse(page))
+  }
+},[])
+
+useEffect(()=>{
+  window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
+// eslint-disable-next-line
+},[pageNo])
+
+
   function isValidEmail(email){
     const emailRegex = /^\S+@\S+\.\S+$/;
     return emailRegex.test(email)
@@ -87,13 +159,31 @@ function handleValue(e){
     }
   })
   setSavedFormData(!savedFormData)
-
+  
 }
+function firstAction(){
+  let error ={}
+  if (!formInputsValue.ticketno){
+    error.ticketno="Please select the no of tickets"
+  }
+  if (!ticketType){
+    error.selectedTicket="Choose type of tickets"
+  }
 
+  setFirstError(error)
+      
+  if (ticketType && formInputsValue.ticketno >0){
+      setPageNo(prev=>{
+         return prev+1
+         })
+  }
+}
 function handleSubmitClick(event){
-  // console.log(formInputsValue)
   let newErrors = {}
-
+  
+  if (!imageUrl){
+    newErrors.image = "Please put an Image"
+  }
   if (!formInputsValue.ticketno){
     newErrors.ticketno="Please select the no of tickets"
   }
@@ -105,16 +195,51 @@ function handleSubmitClick(event){
   } else if (!isValidEmail(formInputsValue.email)){
     newErrors.email ="Invalid email format"
   }
-  // setSavedFormData(true)
- 
+  if(!formInputsValue.textarea){
+    newErrors.textarea="Texts is required"
+  }
   setErrors(newErrors)
+
+  if (imageUrl && formInputsValue.name && newErrors.email === undefined &&formInputsValue.textarea){
+    setPageNo(prev=>prev+1)
+  }
+  event.preventDefault()
+ }
+            
+function backButton(event){
+  if (pageNo !== 0){
+    setPageNo(prev=>{
+      return prev-1
+    })
+  }
   event.preventDefault()
 }
-// console.log(formInputsValue)
 
+
+const ticketsArray = [{
+  id:0,
+  type:"FREE",
+  name:"REGULAR ACCESS",
+  number:"20/52"
+},{
+  id:1,
+  type:"$150",
+  name:"VIP ACCESS",
+  number:"20/52"
+},{
+  id:2,
+  type:"$150",
+  name:"VVIP ACCESS",
+  number:"20/52"
+}]
+
+function handleTicketPick(value){
+  // console.log(value.id)
+setTicketType(value.name)
+setPickedTicket(value.id)
+}
   return (
     <div className="App">
-    {/* <h1 className='novoh'>Novoh</h1> */}
     <header className="header">
       <img className="logo-image" src={Logo} alt=""/>
       <nav className="nav-menu">
@@ -128,7 +253,9 @@ function handleSubmitClick(event){
     </header>
     <main className='content-body'>
 
-    <div className="section-1">
+    {/* {pageNo ===0&& */}
+
+    <div className={pageNo===0?"section-1":"pageDisplayNone"}>
       <TicketHead
         head={"Ticket Selection"}
         steps={"Step 1/3"}
@@ -145,10 +272,17 @@ function handleSubmitClick(event){
       <div className='bottom-section1'>
         <p className='select-ticket-text'>Select Ticket type</p>
         <div className='ticket-type-container'>
-          <TicketType/>
-          <TicketType/>
-          <TicketType/>
+          { 
+          ticketsArray.map((ticket,index)=>(
+          <div onClick={()=>handleTicketPick(ticket)} key={ticket.id} className={(index)==picketTicket?'picked-ticket card-component':"card-component"}>
+            <h1 className="card-component-head">{ticket.type}</h1>
+            <h3 className="card-component-lower-head">{ticket.name}</h3>
+            <p className="card-component-lower-bottom">{ticket.number}</p>
+          </div>
+        ))
+      }
         </div>
+          {firstError&&<div className='error'>{firstError.selectedTicket}</div>}
         <FormInput 
           label={"Number of tickets"}
           type={"number"}
@@ -156,15 +290,18 @@ function handleSubmitClick(event){
           name={"ticketno"}
           action={handleValue}
         />
-          {errors&&<div className='error'>{errors.ticketno}</div>}
+          {firstError&&<div className='error'>{firstError.ticketno}</div>}
           <div className='submit-buttons'>
-            <button className='first-button'>Cancel</button>
-            <button type="submit" className='second-button'>Next</button>
+            <button onClick={backButton} className='first-button'>Cancel</button>
+            <button type="submit" onClick={firstAction} className='second-button'>Next</button>
           </div>
       </div>
     </div>
+    {/* } */}
 
-    <div className="section-1 section2">
+    {/* {pageNo===1&& */}
+      
+    <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}>
       <TicketHead
         head={"Attendee Details"}
         steps={"Step 2/3"}
@@ -176,35 +313,32 @@ function handleSubmitClick(event){
         <div className="upload-image-section">
           <h2 className='select-image'>Upload Profile Photo</h2>
           <div className="upload-photo-container">
-              <label for="myImage" className='custom-image'>
+              
+              <div className='custom-image'>
+              <label style={{backgroundImage:`url("${imageUrl}")`,backgroundSize:"contain",}} className="custom-image" htmlFor="myImage">
                 <img src={cloudImage} alt=""/>
                 <p className='upload-image-text'>Drag and drop or click to upload</p>
               </label>
+              </div>
+              
               <input id="myImage" className='inner-image-container' type="file" onChange={handlePictureUpload}/>
+
           </div>
+              {errors&&<div className='error'>{errors.image}</div>}
         </div>
 
 
         <form onSubmit={handleSubmit} className="form-container">
-          {/* <div className='form-section-cont'>
-            <label className='form-section-title'>Enter yout name</label>
-            <input value={formInputsValue.name} onChange={handleValue} type="text" name="name"/>
-          </div> */}
           <FormInput 
-          label={"Enter your fullname"}
+          label={"Enter your Fullname"}
           type={"text"}
           value={formInputsValue.name}
           name={"name"}
           action={handleValue}
         />
             {errors&&<div className='error'>{errors.name}</div>}
-          {/* <div className='form-section-cont'>
-            <label className='form-section-title'>Enter your email</label>
-            <input value={formInputsValue.email} onChange={handleValue} type="email" name="email" placeholder='hello@avioflagos.io' required="true"/>
-
-          </div> */}
           <FormInput 
-          label={"Enter your email"}
+          label={"Enter your Email"}
           type={"email"}
           value={formInputsValue.email}
           name={"email"}
@@ -217,17 +351,19 @@ function handleSubmitClick(event){
             <label className='form-section-title'>About the project</label>
             <textarea className="form-section-input text-area" value={formInputsValue.textarea} onChange={handleValue} name="textarea" placeholder='Textarea'/>
           </div>
+          {errors&&<div className='error'>{errors.textarea}</div>}
           <div className='submit-buttons'>
-            <button className='first-button'>Back</button>
+            <button onClick={backButton} className='first-button'>Back</button>
             <button type="submit" className='second-button' onClick={handleSubmitClick}>Get My Free Ticket</button>
           </div>
         </form>
       </div>
     </div>
+    {/* } */}
 
 
-
-    <div className='section-1 section2'>
+{/* {pageNo===2&& */}
+    <div className={pageNo===2?'section-1 section2':"pageDisplayNone"}>
     <TicketHead
         head={"Ready"}
         steps={"Step 3/3"}
@@ -246,39 +382,46 @@ function handleSubmitClick(event){
             <h1 className='ticket-content-head'>Techember Fest "25</h1>
             <p className='ticket-content-text-first'>📍 04 Rumens road, Ikoyi, Lagos</p>
             <p className='ticket-content-text-first'>📅 March 15, 2025 | 7:00 PM</p>
-            <img className="ticket-content-pic" src="" alt=""/> 
+            <img className="ticket-content-pic" src={imageUrl} alt=""/> 
             
           <div className='ticket-content-bottom'>
-            <div className='ticket-content-bottom-component1'>
-              <p className='ticket-bottom-component-name'>Enter your name</p>
-              <p className='ticket-bottom-component-answer'>Novoh Sada1</p>
-            </div>
-            <div className='ticket-content-bottom-component2'>
-              <p className='ticket-bottom-component-name'>Enter your name</p>
-              <p className='ticket-bottom-component-answer'>Novoh Sada2</p>
-            </div>
-            <div className='ticket-content-bottom-component3'>
-              <p className='ticket-bottom-component-name'>Enter your name</p>
-              <p className='ticket-bottom-component-answer'>Novoh Sada3</p>
-            </div>
-            <div className='ticket-content-bottom-component4'>
-              <p className='ticket-bottom-component-name'>Enter your name</p>
-              <p className='ticket-bottom-component-answer'>Novoh Sada4</p>
-            </div>
-            <div className='special-request-bottom-component'>
-              <p className='special-request-title'>Enter your name</p>
-              <p className='ticket-request-answer'>Novoh Sada</p>
-            </div>
+            <table>
+              <tr >
+                <th className='first-table'>Enter your name</th>
+                <th>Enter your email*</th>
+              </tr>
+              <tr>
+                <td className='first-table'>{formInputsValue.name}</td>
+                <td>{formInputsValue.email}</td>
+            </tr>
+            <tr>
+              <th>Ticket Type:</th>
+              <th>Ticket for:</th>
+            </tr>
+            <tr>
+              <td>{ticketType}</td>
+              <td>{formInputsValue.ticketno}</td>
+            </tr>
+            <tr>
+              <th colspan="2">Special request?</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+              <td>{formInputsValue.textarea}</td>
+              </td>
+            </tr>
+          </table>
           </div>
             <img className="barcode-image" src="https://i.ibb.co/W3cK42J/image-1.png" alt=""/>       
           </div>
         </div> 
       </div>
       <div className='submit-buttons'>
-            <button className='first-button'>Book another ticket</button>
+            <button onClick={bookNewTicket} className='first-button'>Book another ticket</button>
             <button className='second-button' type="submit">Download Ticket</button>
       </div>
       </div>
+    {/* } */}
     </main>
     </div>
   );
