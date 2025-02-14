@@ -123,17 +123,28 @@ useEffect(()=>{
 
 
 //Saving Page number to local storage
-// useEffect(()=>{
-//   const page = window.localStorage.getItem("My_Page_No")
-//   if (page !== "undefined" ){
-//     setPageNo(JSON.parse(page))
-//   }
-// },[])
+useEffect(()=>{
+  const page = window.localStorage.getItem("My_Page_No")
 
-// useEffect(()=>{
-//   window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
-// // eslint-disable-next-line
-// },[pageNo])
+  console.log(page)
+  // if (page == "null"){
+  //   alert("page is null")
+  // } else{
+  //   alert("page is not null")
+  // }
+
+  if (page !== "undefined" ){
+    setPageNo(JSON.parse(page))
+  }
+  if (page === "null" || page === "undefined"){
+    setPageNo(0)
+  }
+},[])
+
+useEffect(()=>{
+  window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
+// eslint-disable-next-line
+},[pageNo])
 
 
   function isValidEmail(email){
