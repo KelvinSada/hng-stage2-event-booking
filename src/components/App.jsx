@@ -77,7 +77,6 @@ function App() {
   function DownloadImage(image){
     setImageUrl(image)    
   }
-console.log(pageNo)
 
     //Saving image to local storage
   useEffect(()=>{
@@ -127,7 +126,9 @@ useEffect(()=>{
 useEffect(()=>{
   const page = window.localStorage.getItem("My_Page_No")
 
-  console.log(page)
+
+  setPageNo(JSON.parse(page))
+  // console.log(JSON.parse(page))
   // if (page == "null"){
   //   alert("page is null")
   // } else{
@@ -144,7 +145,7 @@ useEffect(()=>{
   //   setPageNo(0)
   // }
 },[])
-
+console.log(pageNo)
 useEffect(()=>{
   window.localStorage.setItem("My_Page_No",JSON.stringify(pageNo))
 // eslint-disable-next-line
@@ -262,8 +263,8 @@ setPickedTicket(value.id)
     <main className='content-body'>
 
 
-    {/* <div className={pageNo===0?"section-1":"pageDisplayNone"}> */}
-    <div className="section-1">
+    <div className={pageNo===0?"section-1":"pageDisplayNone"}>
+    {/* <div className="section-1"> */}
       <TicketHead
         head={"Ticket Selection"}
         steps={"Step 1/3"}
@@ -307,8 +308,8 @@ setPickedTicket(value.id)
     </div>
 
       
-    {/* <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}> */}
-    <div className="section-1 section2">
+    <div className={pageNo===1?"section-1 section2":"pageDisplayNone"}>
+    {/* <div className="section-1 section2"> */}
       <TicketHead
         head={"Attendee Details"}
         steps={"Step 2/3"}
@@ -369,8 +370,8 @@ setPickedTicket(value.id)
     {/* } */}
 
 
-    {/* <div className={pageNo===2?'section-1 section2':"pageDisplayNone"}> */}
-    <div className='section-1 section2'>
+    <div className={pageNo===2?'section-1 section2':"pageDisplayNone"}>
+    {/* <div className='section-1 section2'> */}
     <TicketHead
         head={"Ready"}
         steps={"Step 3/3"}
